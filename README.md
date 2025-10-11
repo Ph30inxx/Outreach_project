@@ -111,7 +111,17 @@ cd frontend
 npm install
 ```
 
-3. Start the development server:
+3. Configure API URL (optional):
+```bash
+cp .env.example .env
+```
+
+Edit `.env` to change the backend API URL if needed:
+```
+REACT_APP_API_URL=http://localhost:5000
+```
+
+4. Start the development server:
 ```bash
 npm start
 ```

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import './App.css';
 
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+
 function App() {
   const [location, setLocation] = useState(null);
   const [nearestNGO, setNearestNGO] = useState(null);
@@ -27,7 +29,7 @@ function App() {
 
         // Find nearest NGO
         try {
-          const response = await fetch('http://localhost:5000/api/nearest-ngo', {
+          const response = await fetch(`${API_URL}/api/nearest-ngo`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
