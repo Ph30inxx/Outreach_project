@@ -18,6 +18,29 @@
   text-align: center;
   color: white;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.header-nav {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+}
+
+.status-link {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border: 2px solid white;
+  border-radius: 8px;
+  transition: all 0.3s;
+  display: inline-block;
+}
+
+.status-link:hover {
+  background: white;
+  color: #667eea;
 }
 
 .App-header h1 {
@@ -219,7 +242,83 @@
   font-size: 0.9rem;
 }
 
+.ngo-link {
+  display: inline-block;
+  margin-top: 0.5rem;
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border: 2px solid white;
+  border-radius: 8px;
+  transition: all 0.3s;
+}
+
+.ngo-link:hover {
+  background: white;
+  color: #667eea;
+}
+
+.success-card {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+  animation: slideUp 0.3s ease-out;
+}
+
+.success-icon {
+  width: 80px;
+  height: 80px;
+  background: #4caf50;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  font-weight: bold;
+  margin: 0 auto 1.5rem;
+  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+}
+
+.success-card h2 {
+  color: #333;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.success-card p {
+  color: #666;
+  margin-bottom: 0.8rem;
+  font-size: 1.1rem;
+}
+
+.success-message {
+  color: #4caf50;
+  font-weight: 600;
+  margin-bottom: 2rem;
+}
+
 @media (max-width: 768px) {
+  .App-header {
+    padding: 1rem;
+    padding-top: 4rem;
+  }
+
+  .header-nav {
+    top: 1rem;
+    right: 1rem;
+  }
+
+  .status-link {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+
   .App-header h1 {
     font-size: 2rem;
   }
@@ -239,6 +338,10 @@
   }
 
   .ngo-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .success-card {
     padding: 2rem 1.5rem;
   }
 }

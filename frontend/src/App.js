@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
+import ComplaintForm from './ComplaintForm';
+import { Link } from 'react-router-dom';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
@@ -8,6 +10,8 @@ function App() {
   const [nearestNGO, setNearestNGO] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [showComplaintForm, setShowComplaintForm] = useState(false);
+  const [complaintSubmitted, setComplaintSubmitted] = useState(false);
 
   const getLocation = () => {
     setLoading(true);
@@ -60,9 +64,27 @@ function App() {
     window.location.href = `tel:${phone}`;
   };
 
+  const handleComplaintSubmitted = (data) => {
+    setComplaintSubmitted(true);
+    setShowComplaintForm(false);
+  };
+
+  const handleRegisterComplaint = () => {
+    setShowComplaintForm(true);
+  };
+
+  const handleCancelComplaint = () => {
+    setShowComplaintForm(false);
+  };
+
   return (
     <div className="App">
       <header className="App-header">
+        <div className="header-nav">
+          <Link to="/status" className="status-link">
+            View Status
+          </Link>
+        </div>
         <h1>Animal Rescue App</h1>
         <p className="subtitle">Help injured animals find care quickly</p>
       </header>
@@ -89,7 +111,7 @@ function App() {
           </div>
         )}
 
-        {nearestNGO && (
+        {nearestNGO && !showComplaintForm && !complaintSubmitted && (
           <div className="ngo-card">
             <div className="ngo-header">
               <h2>Nearest NGO Found!</h2>
@@ -118,10 +140,10 @@ function App() {
 
             <div className="ngo-actions">
               <button
-                className="btn-call"
-                onClick={() => makeCall(nearestNGO.phone)}
+                className="btn-primary"
+                onClick={handleRegisterComplaint}
               >
-                📞 Call Now
+                Register Complaint
               </button>
               <button
                 className="btn-secondary"
@@ -135,10 +157,50 @@ function App() {
             </div>
           </div>
         )}
+
+        {showComplaintForm && (
+          <ComplaintForm
+            ngo={nearestNGO}
+            location={location}
+            onComplaintSubmitted={handleComplaintSubmitted}
+            onCancel={handleCancelComplaint}
+          />
+        )}
+
+        {complaintSubmitted && (
+          <div className="success-card">
+            <div className="success-icon">✓</div>
+            <h2>Complaint Registered Successfully!</h2>
+            <p>Your complaint has been submitted to {nearestNGO.name}</p>
+            <p className="success-message">The NGO will contact you shortly</p>
+
+            <div className="ngo-actions">
+              <button
+                className="btn-call"
+                onClick={() => makeCall(nearestNGO.phone)}
+              >
+                📞 Call NGO Now
+              </button>
+              <button
+                className="btn-secondary"
+                onClick={() => {
+                  setNearestNGO(null);
+                  setLocation(null);
+                  setComplaintSubmitted(false);
+                }}
+              >
+                Submit Another Complaint
+              </button>
+            </div>
+          </div>
+        )}
       </main>
 
       <footer className="App-footer">
         <p>Every animal deserves care and compassion</p>
+        <Link to="/ngo/login" className="ngo-link">
+          NGO Dashboard Login
+        </Link>
       </footer>
     </div>
   );
